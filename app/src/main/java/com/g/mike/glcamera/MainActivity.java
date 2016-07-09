@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.Switch;
 
 import com.g.mike.glcamera.gl.CameraRenderer;
-import com.littlecheesecake.shadercameraexample.R;
+
 
 public class MainActivity extends Activity {
     @Override

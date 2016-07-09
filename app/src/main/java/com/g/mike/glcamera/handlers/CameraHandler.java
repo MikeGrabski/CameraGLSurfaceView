@@ -34,9 +34,11 @@ public class CameraHandler implements iCamera {
     public CameraHandler() {
 
     }
+    @Override
     public void openCamera(){
         camera.open();
     }
+    @Override
     public void swapCam() {
         releaseCamera();
         if (!cameraFront) {
@@ -49,6 +51,7 @@ public class CameraHandler implements iCamera {
         }
 
     }
+    @Override
     public void setupCamera(int height, int width, SurfaceTexture st){
         if (!cameraSet) {
             camera = Camera.open();
@@ -76,6 +79,7 @@ public class CameraHandler implements iCamera {
             params = param;
         }
     }
+    @Override
     public void releaseCamera() {
         if (camera != null) {
             camera.stopPreview();
@@ -83,7 +87,7 @@ public class CameraHandler implements iCamera {
             camera = null;
         }
     }
-
+    @Override
     public void kill() {
         if (camera != null) {
             camera.stopPreview();
@@ -101,24 +105,24 @@ public class CameraHandler implements iCamera {
             imageData = data;
         }
     };
-
+    @Override
     public void setParameters() {
             camera.setParameters(params);
     }
-
+    @Override
     public int getWidth() {
             return width;
         }
-
+    @Override
     public int getHeight() {
             return height;
         }
-
+    @Override
     public void startPreview() {
             camera.startPreview();
         }
 
-
+    @Override
     public void capture(int orientation) {
         if(flashEnabled){
             //params.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
@@ -138,13 +142,13 @@ public class CameraHandler implements iCamera {
         img.store(orientation);
         imageData = null;
     }
-
+    @Override
     public void toggleFlash() {
         if(!cameraFront){
             flashEnabled=!flashEnabled;
         }
     }
-
+    @Override
     public boolean getCameraId() {
         return cameraFront;
     }

@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.g.mike.glcamera.gl.CameraRenderer;
 import com.g.mike.glcamera.handlers.CameraHandler;
 import com.g.mike.glcamera.handlers.PermissionHandler;
-import com.littlecheesecake.shadercameraexample.R;
+
 
 
 /**

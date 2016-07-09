@@ -11,9 +11,11 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.AttributeSet;
+
+import com.g.mike.glcamera.R;
 import com.g.mike.glcamera.handlers.CameraHandler;
 import com.g.mike.glcamera.iCamera;
-import com.littlecheesecake.shadercameraexample.R;
+
 
 
 public class CameraRenderer extends GLSurfaceView implements
@@ -241,6 +243,18 @@ public class CameraRenderer extends GLSurfaceView implements
         GLES20.glVertexAttribPointer(aPosition, 2, GLES20.GL_BYTE, false, 0, mFullQuadVertices);
         GLES20.glEnableVertexAttribArray(aPosition);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        iCam.kill();
+    }
+
+    @Override
+    public void onResume() {
+        iCam.setupCamera(mHeight,mWidth,mSurfaceTexture);
+        super.onResume();
     }
     public void onDestroy(){
         updateTexture = false;
