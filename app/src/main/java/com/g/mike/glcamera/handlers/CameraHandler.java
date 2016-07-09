@@ -34,7 +34,6 @@ public class CameraHandler implements iCamera {
     public CameraHandler() {
 
     }
-    @Override
     public void openCamera(){
         camera.open();
     }

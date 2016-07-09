@@ -61,7 +61,7 @@ public class Camera2Handler implements iCamera {
     private int mHeight;
     private boolean facingFront = false;
     private int mWidth;
-
+    private boolean flashEnabled = false;
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
@@ -77,6 +77,7 @@ public class Camera2Handler implements iCamera {
     }
 
     private int mOrientation = 0;
+    private boolean toggleFlash = false;
 
 
     public Camera2Handler(Activity activity){
@@ -791,8 +792,15 @@ public class Camera2Handler implements iCamera {
 
     private void setAutoFlash(CaptureRequest.Builder requestBuilder) {
         if (mFlashSupported) {
-            requestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
-                    CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
+
+                if (!flashEnabled)
+                    requestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
+                            CaptureRequest.CONTROL_AE_MODE_ON_ALWAYS_FLASH);
+                if (flashEnabled){
+                    requestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
+                            CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
+                }
+
         }
     }
 
@@ -917,12 +925,6 @@ public class Camera2Handler implements iCamera {
         setupCamera(mHeight,mWidth,mSurfaceTexture);
         startCameraAndPreview();
     }
-
-    @Override
-    public void openCamera() {
-
-    }
-
     @Override
     public void setParameters() {
 
@@ -936,7 +938,7 @@ public class Camera2Handler implements iCamera {
 
     @Override
     public void toggleFlash() {
-
+        flashEnabled = !flashEnabled;
     }
 
     @Override

@@ -10,7 +10,6 @@ public interface iCamera {
     void kill();
     void releaseCamera();
     void swapCam();
-    void openCamera();
     void setParameters();
     void capture(int orientation);
     void toggleFlash();
