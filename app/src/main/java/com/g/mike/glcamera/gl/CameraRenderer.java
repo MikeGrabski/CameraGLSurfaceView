@@ -251,11 +251,7 @@ public class CameraRenderer extends GLSurfaceView implements
         iCam.kill();
     }
 
-    @Override
-    public void onResume() {
-        iCam.setupCamera(mHeight,mWidth,mSurfaceTexture);
-        super.onResume();
-    }
+
     public void onDestroy(){
         updateTexture = false;
         if(mSurfaceTexture!=null)

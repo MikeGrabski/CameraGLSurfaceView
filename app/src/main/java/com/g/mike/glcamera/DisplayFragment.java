@@ -21,6 +21,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.g.mike.glcamera.gl.CameraRenderer;
+import com.g.mike.glcamera.handlers.Camera2Handler;
 import com.g.mike.glcamera.handlers.CameraHandler;
 import com.g.mike.glcamera.handlers.PermissionHandler;
 
@@ -259,7 +260,7 @@ private iCamera iCam;
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(iCam ==null){
-            iCam = (isNewCameraVersion() ? new CameraHandler() : new CameraHandler());
+            iCam = (isNewCameraVersion() ? new Camera2Handler(getActivity()) : new CameraHandler());
             mRenderer.setICamera(iCam);
         }
 

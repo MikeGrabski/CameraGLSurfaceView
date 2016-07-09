@@ -84,6 +84,7 @@ public class CameraHandler implements iCamera {
             camera.stopPreview();
             camera.release();
             camera = null;
+            cameraSet = false;
         }
     }
     @Override
@@ -92,6 +93,7 @@ public class CameraHandler implements iCamera {
             camera.stopPreview();
             camera.setPreviewCallback(null);
             camera.release();
+            cameraSet = false;
         }
 
         camera = null;

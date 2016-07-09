@@ -916,7 +916,7 @@ public class Camera2Handler implements iCamera {
     @Override
     public void releaseCamera() {
         closeCamera();
-        stopBackgroundThread();
+
     }
 
     @Override
