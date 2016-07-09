@@ -1,0 +1,10 @@
+uniform mat4 uTransformM;
+attribute vec4 position;
+attribute vec4 inputTextureCoordinate;
+
+varying vec2 textureCoordinate;
+
+void main() {
+    gl_Position = position;
+    textureCoordinate = (uTransformM * inputTextureCoordinate).xy;
+}

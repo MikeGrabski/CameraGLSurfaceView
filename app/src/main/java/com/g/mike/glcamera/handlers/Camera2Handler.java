@@ -20,7 +20,7 @@ public class Camera2Handler implements iCamera {
     private String[] camerIDs;
     private Context context;
     private boolean cameraFront;
-    private Camera
+
 
 
     @Override
