@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/glView">
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switch1"
+            android:layout_gravity="left|center_vertical"
+            android:checked="false" />
+
+        <ImageButton
+
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/capture"
+            android:text="capture"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@drawable/capture_icon"/>
+
+        <ImageButton
+
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="Split Position"
+            android:id="@+id/button"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/mirror_icon"
+            />
+
+        <ImageButton
+
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="Swap Camera"
+            android:id="@+id/buttonSwap"
+            android:layout_gravity="right|bottom"
+            android:singleLine="false"
+            android:visibility="gone"
+            android:background="@drawable/reload_icon"/>
+
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="Flash"
+            android:visibility="gone"
+            android:id="@+id/flash"
+            android:layout_gravity="left|bottom"
+            android:background="@drawable/flash_icon_disabled"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:visibility="gone"
+            android:id="@+id/processing"/>
+
+    </FrameLayout>
+</FrameLayout>
