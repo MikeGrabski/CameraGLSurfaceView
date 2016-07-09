@@ -35,6 +35,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.g.mike.glcamera.ImageStore;
 import com.g.mike.glcamera.iCamera;
 
 import java.io.File;
@@ -78,6 +79,7 @@ public class Camera2Handler implements iCamera {
 
     private int mOrientation = 0;
     private boolean toggleFlash = false;
+    private boolean doneSaving;
 
 
     public Camera2Handler(Activity activity){
@@ -741,8 +743,6 @@ public class Camera2Handler implements iCamera {
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
-                    showToast("Saved: " + mFile);
-                    Log.d(TAG, mFile.toString());
                     unlockFocus();
                 }
             };
@@ -807,7 +807,7 @@ public class Camera2Handler implements iCamera {
     /**
      * Saves a JPEG {@link Image} into the specified {@link File}.
      */
-    private static class ImageSaver implements Runnable {
+    private  class ImageSaver implements Runnable {
 
         /**
          * The JPEG image
@@ -828,22 +828,9 @@ public class Camera2Handler implements iCamera {
             ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
-            FileOutputStream output = null;
-            try {
-                output = new FileOutputStream(mFile);
-                output.write(bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                mImage.close();
-                if (null != output) {
-                    try {
-                        output.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+            ImageStore imageStore = new ImageStore(bytes);
+            imageStore.store(mOrientation);
+            doneSaving = true;
         }
 
     }
@@ -934,6 +921,10 @@ public class Camera2Handler implements iCamera {
     public void capture(int orientation) {
         takePicture();
         mOrientation = orientation;
+        while(true){
+            if(doneSaving) break;
+        }
+        doneSaving=false;
     }
 
     @Override
