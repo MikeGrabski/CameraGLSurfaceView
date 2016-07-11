@@ -1,5 +1,6 @@
 package com.g.mike.glcamera.handlers;
 
+import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -140,7 +141,7 @@ public class CameraHandler implements iCamera {
                 break;
         }
         ImageStore img = new ImageStore(imageData);
-        img.store(orientation);
+        img.store(orientation, ImageStore.SAVE_AS_JPEG);
         imageData = null;
     }
     @Override
@@ -152,6 +153,11 @@ public class CameraHandler implements iCamera {
     @Override
     public boolean getCameraId() {
         return cameraFront;
+    }
+
+    @Override
+    public int getCameraVersion() {
+        return 1;
     }
 }
 

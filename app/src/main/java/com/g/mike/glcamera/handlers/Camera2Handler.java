@@ -638,39 +638,6 @@ public class Camera2Handler implements iCamera {
     }
 
     /**
-     * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
-     * This method should be called after the camera preview size is determined in
-     * setUpCameraOutputs and also the size of `mTextureView` is fixed.
-     *
-     * @param viewWidth  The width of `mTextureView`
-     * @param viewHeight The height of `mTextureView`
-     */
-    /*private void configureTransform(int viewWidth, int viewHeight) {
-        Activity activity = mActivity;
-        if (null == mTextureView || null == mPreviewSize || null == activity) {
-            return;
-        }
-        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
-        Matrix matrix = new Matrix();
-        RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
-        RectF bufferRect = new RectF(0, 0, mPreviewSize.getHeight(), mPreviewSize.getWidth());
-        float centerX = viewRect.centerX();
-        float centerY = viewRect.centerY();
-        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
-            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
-            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
-            float scale = Math.max(
-                    (float) viewHeight / mPreviewSize.getHeight(),
-                    (float) viewWidth / mPreviewSize.getWidth());
-            matrix.postScale(scale, scale, centerX, centerY);
-            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
-        } else if (Surface.ROTATION_180 == rotation) {
-            matrix.postRotate(180, centerX, centerY);
-        }
-        mTextureView.setTransform(matrix);
-    }*/
-
-    /**
      * Initiate a still image capture.
      */
     private void takePicture() {
@@ -789,7 +756,6 @@ public class Camera2Handler implements iCamera {
         }
     }
 
-
     private void setAutoFlash(CaptureRequest.Builder requestBuilder) {
         if (mFlashSupported) {
 
@@ -804,6 +770,7 @@ public class Camera2Handler implements iCamera {
         }
     }
 
+
     /**
      * Saves a JPEG {@link Image} into the specified {@link File}.
      */
@@ -813,11 +780,11 @@ public class Camera2Handler implements iCamera {
          * The JPEG image
          */
         private final Image mImage;
+
         /**
          * The file we save the image into.
          */
         private final File mFile;
-
         public ImageSaver(Image image, File file) {
             mImage = image;
             mFile = file;
@@ -829,7 +796,7 @@ public class Camera2Handler implements iCamera {
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
             ImageStore imageStore = new ImageStore(bytes);
-            imageStore.store(mOrientation);
+            imageStore.store(ImageStore.SAVE_AS_JPEG);
             doneSaving = true;
         }
 
@@ -880,6 +847,37 @@ public class Camera2Handler implements iCamera {
 
     }
 
+    /**
+     * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
+     * This method should be called after the camera preview size is determined in
+     * setUpCameraOutputs and also the size of `mTextureView` is fixed.
+     *
+     * @param viewWidth  The width of `mTextureView`
+     * @param viewHeight The height of `mTextureView`
+     */
+   /* @Override
+    public Matrix getTransformationMatrix(int viewWidth, int viewHeight) {
+        Activity activity = mActivity;
+        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        Matrix matrix = new Matrix();
+        RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
+        RectF bufferRect = new RectF(0, 0, mPreviewSize.getHeight(), mPreviewSize.getWidth());
+        float centerX = viewRect.centerX();
+        float centerY = viewRect.centerY();
+        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
+            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
+            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
+            float scale = Math.max(
+                    (float) viewHeight / mPreviewSize.getHeight(),
+                    (float) viewWidth / mPreviewSize.getWidth());
+            matrix.postScale(scale, scale, centerX, centerY);
+            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
+        } else if (Surface.ROTATION_180 == rotation) {
+            matrix.postRotate(180, centerX, centerY);
+        }
+        return matrix;
+    }
+*/
     /**
      * Shows OK/Cancel confirmation dialog about camera permission.
      */
@@ -940,7 +938,7 @@ public class Camera2Handler implements iCamera {
 
     @Override
     public int getWidth() {
-    return         mPreviewSize.getWidth();
+    return mPreviewSize.getWidth();
     }
 
     @Override
@@ -951,5 +949,10 @@ public class Camera2Handler implements iCamera {
     @Override
     public void startPreview() {
         startCameraAndPreview();
+    }
+
+    @Override
+    public int getCameraVersion() {
+        return 2;
     }
 }

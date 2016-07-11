@@ -13,7 +13,6 @@ import android.opengl.Matrix;
 import android.util.AttributeSet;
 
 import com.g.mike.glcamera.R;
-import com.g.mike.glcamera.handlers.CameraHandler;
 import com.g.mike.glcamera.iCamera;
 
 
@@ -127,22 +126,22 @@ public class CameraRenderer extends GLSurfaceView implements
         iCam.setupCamera(height,width,mSurfaceTexture);
         camera_width=iCam.getWidth();
         camera_height=iCam.getHeight();
-
-
-
+        /*android.graphics.Matrix m = iCam.getTransformationMatrix(width,height);
+        m.getValues(mOrientationM);
+*/
+        int version = iCam.getCameraVersion();
         //get the camera orientation and display dimension------------
         if(mContext.getResources().getConfiguration().orientation ==
-                Configuration.ORIENTATION_PORTRAIT){
-            Matrix.setRotateM(mOrientationM, 0, 0.0f, 0f, 0f, 1f);
+                Configuration.ORIENTATION_PORTRAIT ){
+            Matrix.setRotateM(mOrientationM, 0, (2-version)*90.0f, 0f, 0f, 1f);
             mRatio[1] = camera_width*1.0f/height;
             mRatio[0] = camera_height*1.0f/width;
         }
         else{
-            Matrix.setRotateM(mOrientationM, 0, 90.0f, 0f, 0f, 1f);
+            Matrix.setRotateM(mOrientationM, 0, (version-1)*90.0f, 0f, 0f, 1f);
             mRatio[1] = camera_height*1.0f/height;
             mRatio[0] = camera_width*1.0f/width;
         }
-
         //start camera-----------------------------------------
         iCam.setParameters();
         iCam.startPreview();
@@ -248,7 +247,7 @@ public class CameraRenderer extends GLSurfaceView implements
     @Override
     public void onPause() {
         super.onPause();
-        iCam.kill();
+        iCam.releaseCamera();
     }
 
 

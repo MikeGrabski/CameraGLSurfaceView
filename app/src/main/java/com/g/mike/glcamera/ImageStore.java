@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.File;
@@ -20,21 +21,36 @@ import java.util.PriorityQueue;
 public class ImageStore {
     private static final int MEDIA_TYPE_JPEG = 1;
     private static final int MEDIA_TYPE_BMP = 2;
+    public static final int SAVE_AS_JPEG = 3;
+    public static final int SAVE_AS_BITMAP = 4;
+
     private  Bitmap image;
     public ImageStore(byte[] data){
         image = BitmapFactory.decodeByteArray(data,0,data.length);
     }
-    public void store(int orientation){
+    public void store(int orientation, int saveFormat){
         //TODO implement dialogFragment to choose
         if(orientation==0)
             rotate(90);
         else
             rotate(orientation);
 
-        saveAsBitmap();
-        saveAsIs();
+        if(saveFormat == SAVE_AS_BITMAP) {
+            saveAsBitmap();
+        }
+        if(saveFormat == SAVE_AS_JPEG) {
+            saveAsIs();
+        }
     }
 
+    public void store(int saveFormat){
+        if(saveFormat == SAVE_AS_BITMAP) {
+            saveAsBitmap();
+        }
+        if(saveFormat == SAVE_AS_JPEG) {
+            saveAsIs();
+        }
+    }
     private void rotate(int degree) {
         Matrix matrix = new Matrix();
 

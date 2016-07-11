@@ -185,7 +185,7 @@ private iCamera iCam;
             protected void onPostExecute(Void aVoid) {
                 progressBar.setVisibility(ProgressBar.GONE);
                 capture.setVisibility(ImageButton.VISIBLE);
-                Toast.makeText(getActivity().getApplicationContext(),"Saved Both the BMP and JPG",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(),"Saved...",Toast.LENGTH_LONG).show();
                 super.onPostExecute(aVoid);
             }
         }

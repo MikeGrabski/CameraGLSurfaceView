@@ -1,5 +1,6 @@
 package com.g.mike.glcamera;
 
+import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 
 /**
@@ -17,7 +18,7 @@ public interface iCamera {
     int getWidth();
     int getHeight();
     void startPreview();
-
+    int getCameraVersion();
 
 
 }
