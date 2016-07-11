@@ -400,8 +400,15 @@ public class Camera2Handler implements iCamera {
 
                 // We don't use a front facing camera in this sample.
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT&&!facingFront) {
-                    continue;
+                if(!facingFront){
+                    if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                      continue;
+                    }
+                }
+                if(facingFront){
+                    if (facing != null && facing == CameraCharacteristics.LENS_FACING_BACK) {
+                        continue;
+                    }
                 }
 
                 StreamConfigurationMap map = characteristics.get(
@@ -906,10 +913,11 @@ public class Camera2Handler implements iCamera {
 
     @Override
     public void swapCam() {
-        kill();
+        //kill();
+        releaseCamera();
         facingFront = !facingFront;
         setupCamera(mHeight,mWidth,mSurfaceTexture);
-        startCameraAndPreview();
+        //startCameraAndPreview();
     }
     @Override
     public void setParameters() {
